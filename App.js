@@ -10,7 +10,7 @@ export default class App extends React.Component {
         return (
             <View style={styles.container}>
                 {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-                <AppContainer style={styles.navContainer} />
+                <AppContainer />
             </View>
         );
     }
@@ -20,8 +20,5 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-    },
-    navContainer: {
-        height: 200,
     },
 });
