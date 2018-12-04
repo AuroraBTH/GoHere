@@ -1,5 +1,5 @@
 import React from 'react';
-import Platform from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
@@ -20,6 +20,7 @@ HomeStack.navigationOptions = {
     />
   ),
   tabBarOptions: {
+      activeBackgroundColor: 'blue',
       activeTintColor: '#C58143',
       inactiveTintColor: 'grey',
   },
@@ -41,6 +42,7 @@ SettingsStack.navigationOptions = {
     />
   ),
   tabBarOptions: {
+      activeBackgroundColor: 'blue',
       activeTintColor: '#C58143',
       inactiveTintColor: 'grey',
   },
