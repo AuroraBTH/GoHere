@@ -1,6 +1,7 @@
 import React from 'react';
 import { Platform, StyleSheet } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import Colors from '../constants/Colors';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import RoutesScreen from '../screens/RoutesScreen';
@@ -8,107 +9,128 @@ import CurrencyScreen from '../screens/CurrencyScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 const HomeStack = createStackNavigator({
-  Home: {
-      screen: HomeScreen,
-  }
+    Home: {
+        screen: HomeScreen,
+    }
 });
 
 HomeStack.navigationOptions = {
-  tabBarLabel: 'Map',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-map' : 'md-map'}
-    />
-  ),
-  tabBarOptions: {
-      activeBackgroundColor: '#406983',
-      inactiveBackgroundColor: '#95AEC2',
-      activeTintColor: '#FEFEFE',
-      inactiveTintColor: '#DDD',
-      labelStyle: {
-          fontSize: 12,
-      }
-  },
+    tabBarLabel: 'Map',
+    tabBarIcon: ({ focused }) => (
+        <TabBarIcon
+        focused={focused}
+        name={Platform.OS === 'ios' ? 'ios-map' : 'md-map'}
+        />
+    ),
+    tabBarOptions: {
+        activeBackgroundColor: '#406983',
+        inactiveBackgroundColor: '#95AEC2',
+        activeTintColor: Colors.tintColor,
+        inactiveTintColor: '#333',
+        labelStyle: {
+            fontSize: 12,
+            marginBottom: 5,
+        },
+        style: {
+            borderTopColor: Colors.tintColor,
+            borderTopWidth: 2,
+            height: 60,
+        },
+    },
 };
 
 const RoutesStack = createStackNavigator({
-  Routes: {
-      screen: RoutesScreen,
-  }
+    Routes: {
+        screen: RoutesScreen,
+    }
 });
 
 RoutesStack.navigationOptions = {
-  tabBarLabel: 'Routes',
-  tabBarIcon: ({ focused, tintColor }) => (
-    <TabBarIcon
+    tabBarLabel: 'Routes',
+    tabBarIcon: ({ focused }) => (
+        <TabBarIcon
         focused={focused}
-        name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
-        color={tintColor}
-    />
-  ),
-  tabBarOptions: {
-      activeBackgroundColor: '#406983',
-      inactiveBackgroundColor: '#95AEC2',
-      activeTintColor: '#FEFEFE',
-      inactiveTintColor: '#DDD',
-      labelStyle: {
-          fontSize: 12,
-      }
-  },
+        name={Platform.OS === 'ios' ? 'ios-pin' : 'md-pin'}
+        />
+    ),
+    tabBarOptions: {
+        activeBackgroundColor: '#406983',
+        inactiveBackgroundColor: '#95AEC2',
+        activeTintColor: Colors.tintColor,
+        inactiveTintColor: '#333',
+        labelStyle: {
+            fontSize: 12,
+            marginBottom: 5,
+        },
+        style: {
+            borderTopColor: Colors.tintColor,
+            borderTopWidth: 2,
+            height: 60,
+        },
+    },
 };
 
 const CurrencyStack = createStackNavigator({
-  Currency: {
-      screen: CurrencyScreen,
-  }
+    Currency: {
+        screen: CurrencyScreen,
+    }
 });
 
 CurrencyStack.navigationOptions = {
-  tabBarLabel: 'Currency',
-  tabBarIcon: ({ focused, tintColor }) => (
-    <TabBarIcon
+    tabBarLabel: 'Currency',
+    tabBarIcon: ({ focused }) => (
+        <TabBarIcon
         focused={focused}
-        name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
-        color={tintColor}
-    />
-  ),
-  tabBarOptions: {
-      activeBackgroundColor: '#406983',
-      inactiveBackgroundColor: '#95AEC2',
-      activeTintColor: '#FEFEFE',
-      inactiveTintColor: '#DDD',
-      labelStyle: {
-          fontSize: 12,
-      }
-  },
+        name={Platform.OS === 'ios' ? 'ios-repeat' : 'md-repeat'}
+        />
+    ),
+    tabBarOptions: {
+        activeBackgroundColor: '#406983',
+        inactiveBackgroundColor: '#95AEC2',
+        activeTintColor: Colors.tintColor,
+        inactiveTintColor: '#333',
+        labelStyle: {
+            fontSize: 12,
+            marginBottom: 5,
+        },
+        style: {
+            borderTopColor: Colors.tintColor,
+            borderTopWidth: 2,
+            height: 60,
+        },
+    },
 };
 
 const SettingsStack = createStackNavigator({
-  Settings: {
-      screen: SettingsScreen,
-  }
+    Settings: {
+        screen: SettingsScreen,
+    }
 });
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
-  tabBarIcon: ({ focused, tintColor }) => (
-    <TabBarIcon
+    tabBarLabel: 'Settings',
+    tabBarIcon: ({ focused }) => (
+        <TabBarIcon
         focused={focused}
-        name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
-        color={tintColor}
-    />
-  ),
-  tabBarOptions: {
-      activeBackgroundColor: '#406983',
-      inactiveBackgroundColor: '#95AEC2',
-      activeTintColor: '#FEFEFE',
-      inactiveTintColor: '#DDD',
+        name={Platform.OS === 'ios' ? 'ios-settings' : 'md-settings'}
+        />
+    ),
+    tabBarOptions: {
+        activeBackgroundColor: '#406983',
+        inactiveBackgroundColor: '#95AEC2',
+        activeTintColor: Colors.tintColor,
+        inactiveTintColor: '#333',
 
-      labelStyle: {
-          fontSize: 12,
-      },
-  },
+        labelStyle: {
+            fontSize: 12,
+            marginBottom: 5,
+        },
+        style: {
+            borderTopColor: Colors.tintColor,
+            borderTopWidth: 2,
+            height: 60,
+        },
+    },
 };
 
 export default createBottomTabNavigator({
