@@ -3,6 +3,8 @@ import { Platform, StyleSheet } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
+import RoutesScreen from '../screens/RoutesScreen';
+import CurrencyScreen from '../screens/CurrencyScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 const HomeStack = createStackNavigator({
@@ -20,9 +22,65 @@ HomeStack.navigationOptions = {
     />
   ),
   tabBarOptions: {
-      activeBackgroundColor: 'blue',
-      activeTintColor: '#C58143',
-      inactiveTintColor: 'grey',
+      activeBackgroundColor: '#406983',
+      inactiveBackgroundColor: '#95AEC2',
+      activeTintColor: '#FEFEFE',
+      inactiveTintColor: '#DDD',
+      labelStyle: {
+          fontSize: 12,
+      }
+  },
+};
+
+const RoutesStack = createStackNavigator({
+  Routes: {
+      screen: RoutesScreen,
+  }
+});
+
+RoutesStack.navigationOptions = {
+  tabBarLabel: 'Routes',
+  tabBarIcon: ({ focused, tintColor }) => (
+    <TabBarIcon
+        focused={focused}
+        name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+        color={tintColor}
+    />
+  ),
+  tabBarOptions: {
+      activeBackgroundColor: '#406983',
+      inactiveBackgroundColor: '#95AEC2',
+      activeTintColor: '#FEFEFE',
+      inactiveTintColor: '#DDD',
+      labelStyle: {
+          fontSize: 12,
+      }
+  },
+};
+
+const CurrencyStack = createStackNavigator({
+  Currency: {
+      screen: CurrencyScreen,
+  }
+});
+
+CurrencyStack.navigationOptions = {
+  tabBarLabel: 'Currency',
+  tabBarIcon: ({ focused, tintColor }) => (
+    <TabBarIcon
+        focused={focused}
+        name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+        color={tintColor}
+    />
+  ),
+  tabBarOptions: {
+      activeBackgroundColor: '#406983',
+      inactiveBackgroundColor: '#95AEC2',
+      activeTintColor: '#FEFEFE',
+      inactiveTintColor: '#DDD',
+      labelStyle: {
+          fontSize: 12,
+      }
   },
 };
 
@@ -42,13 +100,20 @@ SettingsStack.navigationOptions = {
     />
   ),
   tabBarOptions: {
-      activeBackgroundColor: 'blue',
-      activeTintColor: '#C58143',
-      inactiveTintColor: 'grey',
+      activeBackgroundColor: '#406983',
+      inactiveBackgroundColor: '#95AEC2',
+      activeTintColor: '#FEFEFE',
+      inactiveTintColor: '#DDD',
+
+      labelStyle: {
+          fontSize: 12,
+      },
   },
 };
 
 export default createBottomTabNavigator({
     HomeStack,
+    RoutesStack,
+    CurrencyStack,
     SettingsStack,
 });
