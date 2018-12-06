@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, StatusBar } from 'react-native';
+import Colors from '../../constants/Colors';
 
 export default class MapSearch extends Component {
 
@@ -16,7 +17,7 @@ export default class MapSearch extends Component {
 
 const styles = StyleSheet.create({
     searchContainer: {
-        backgroundColor: 'blue',
+        backgroundColor: Colors.stone,
         display: 'flex',
         flex: 1,
         justifyContent: 'center',
