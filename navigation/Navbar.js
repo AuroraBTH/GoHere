@@ -32,8 +32,6 @@ HomeStack.navigationOptions = {
             marginBottom: 5,
         },
         style: {
-            borderTopColor: Colors.tintColor,
-            borderTopWidth: 2,
             height: 60,
         },
     },
@@ -63,8 +61,6 @@ RoutesStack.navigationOptions = {
             marginBottom: 5,
         },
         style: {
-            borderTopColor: Colors.tintColor,
-            borderTopWidth: 2,
             height: 60,
         },
     },
@@ -94,8 +90,6 @@ CurrencyStack.navigationOptions = {
             marginBottom: 5,
         },
         style: {
-            borderTopColor: Colors.tintColor,
-            borderTopWidth: 2,
             height: 60,
         },
     },
@@ -126,8 +120,6 @@ SettingsStack.navigationOptions = {
             marginBottom: 5,
         },
         style: {
-            borderTopColor: Colors.tintColor,
-            borderTopWidth: 2,
             height: 60,
         },
     },
