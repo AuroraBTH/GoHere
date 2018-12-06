@@ -2,6 +2,8 @@ const tintColor = '#FEFEFE';
 
 export default {
   tintColor,
+  stone: '#406983',
+  mist: '#95AEC2',
   tabIconDefault: '#333',
   tabIconSelected: tintColor,
   tabBar: '#fefefe',
