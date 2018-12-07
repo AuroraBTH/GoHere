@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Button } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
+import { connect } from 'react-redux';
+import { addText } from '../../redux/actions/testAction';
 
-export default class MapLoad extends Component {
+class MapLoad extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -47,7 +49,7 @@ export default class MapLoad extends Component {
                     style={styles.map}
                     showsUserLocation={true}
                     region={this.state.startRegion}
-                    onRegionChange={this.onRegionChange}
+                    /*onRegionChange={this.onRegionChange} DIS LAGGS, IX THIS*/
                 >
                     {this.state.markers.map((marker, index) => (
                         <Marker
@@ -57,12 +59,20 @@ export default class MapLoad extends Component {
                             key={index}
                         />
                     ))}
+                    <Text>{this.props.text}</Text>
                 </MapView>
+                <Button title="Yello" onPress={() => this.props.dispatch(addText("test"))}></Button>
                 <Text>{this.state.startRegion.latitude}</Text>
             </View>
         );
     }
 }
+
+export default connect((store) => {
+    return {
+        text: store.test.text
+    }
+})(MapLoad);
 
 const styles = StyleSheet.create({
     mapContainer: {
