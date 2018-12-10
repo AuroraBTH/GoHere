@@ -1,28 +1,39 @@
-import React, { Component } from 'react';
-import { Text, View, StyleSheet, StatusBar } from 'react-native';
-import { SearchBar } from 'react-native-elements';
-import Colors from '../../constants/Colors';
+import React, { Component } from 'react'
+import { Text, View, StyleSheet, ScrollView } from 'react-native'
+import Search from 'react-native-search-box'
+import { connect } from 'react-redux'
 
-export default class MapSearch extends Component {
+import { submitSearch } from '../../redux/actions/mapAction'
+import Colors from '../../constants/Colors'
+class MapSearch extends Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            searchValue: "",
+        }
+    }
 
     render() {
         return (
             <View style={styles.searchContainer}>
                 <View>
-                    <SearchBar
-                        // onChangeText={}
-                        // onClear={}
-                        clearIcon={{ color: 'red' }}
-                        round
-                        showLoading
-                        darkTheme
-                        placeholder='Search'
-                    />
+                    <Search
+                        ref="search_box"
+                        onChangeText={(searchValue) => this.setState({ searchValue })}
+                        onSearch={ () => this.props.dispatch(submitSearch(this.state.searchValue)) }
+                    /> 
                 </View>
+                <ScrollView>{console.log(this.state.resultArray)}</ScrollView>
             </View>
-        );
+        )
     }
 }
+
+export default connect((store) => {
+    return {
+        resultArray: store.map.resultArray
+    }
+})(MapSearch)
 
 const styles = StyleSheet.create({
     searchContainer: {

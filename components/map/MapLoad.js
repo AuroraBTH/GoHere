@@ -59,7 +59,6 @@ class MapLoad extends Component {
                             key={index}
                         />
                     ))}
-                    <Text>{this.props.text}</Text>
                 </MapView>
                 <Button title="Yello" onPress={() => this.props.dispatch(addText("test"))}></Button>
                 <Text>{this.state.startRegion.latitude}</Text>
@@ -69,9 +68,7 @@ class MapLoad extends Component {
 }
 
 export default connect((store) => {
-    return {
-        text: store.test.text
-    }
+    return {}
 })(MapLoad);
 
 const styles = StyleSheet.create({
