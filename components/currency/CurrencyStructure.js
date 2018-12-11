@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, StatusBar, ActivityIndicator, TextInput, Button } from 'react-native';
+import { Text, View, StyleSheet, StatusBar, ActivityIndicator, TextInput, Button, Platform, TouchableHighlight } from 'react-native';
 import Colors from '../../constants/Colors';
+import { Icon } from 'expo';
 
 export default class CurrencyStructure extends Component {
-
-
     constructor(props){
         super(props);
         this.state = {
@@ -92,39 +91,54 @@ export default class CurrencyStructure extends Component {
 
         return (
             <View style={styles.currencyScreenContainer}>
-                <Text>
+                <View style={{borderBottomColor: 'grey', borderBottomWidth: 1}}>
+                    <Text style={{fontSize: 20, textAlign: 'center', marginBottom: 10}}>Currency Converter</Text>
+                </View>
+                <Text style={styles.currencyDate}>
                     Currency date {this.state.currencyDate}
                 </Text>
 
-                <Text>
+                <Text style={styles.currencyText}>
                     From: {this.state.baseCurr}
                     {"\n"}
                     To: {this.state.currentCurrency} ({this.state.firstValue})
                 </Text>
 
-                <Button
-                  onPress={this.changeCurrency}
-                  title="Flip currency"
-                  color={Colors.stone}
-                  accessibilityLabel="Flip currency"
-                />
-
                 <TextInput
                     keyboardType={"number-pad"}
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                    style={[styles.currencyInput, styles.currencySum]}
                     placeholder="1"
                     onChangeText={(secondValue) => this.setState({secondValue})}
                     returnKeyType="done"
                 />
 
-                <Button
-                  onPress={this.calculateSum}
-                  title="Convert"
-                  color={Colors.stone}
-                  accessibilityLabel="Convert currency"
+                <TouchableHighlight
+                    style={{width: 40, alignSelf: 'center'}}
+                    onPress={this.changeCurrency}
+                    underlayColor={Colors.tintColor}
+                    >
+                    <Icon.Ionicons
+                        name={Platform.OS === 'ios' ? 'ios-repeat' : 'md-repeat'}
+                        size={40}
+                        style={{textAlign: 'center'}}
+                    />
+                </TouchableHighlight>
+
+                <TextInput
+                    style={[styles.currencyInput, {backgroundColor: '#f1f1f1'}]}
+                    placeholder={`${this.state.sum} ${this.state.currentCurrency}`}
+                    placeholderTextColor='black'
+                    editable={false}
                 />
 
-                <Text>{`Sum ${this.state.sum}`}</Text>
+                <TouchableHighlight style={styles.buttons}>
+                    <Button
+                        onPress={this.calculateSum}
+                        title="Convert"
+                        color={Colors.stone}
+                        accessibilityLabel="Convert currency"
+                    />
+                </TouchableHighlight>
             </View>
         );
     }
@@ -134,5 +148,31 @@ export default class CurrencyStructure extends Component {
 const styles = StyleSheet.create({
     currencyScreenContainer: {
         flex: 1,
-    }
+        margin: 10,
+    },
+    currencyDate: {
+        marginTop: 10,
+        marginBottom: 10,
+    },
+    currencyText: {
+        fontSize: 18,
+        marginBottom: 10,
+    },
+    currencyInput: {
+        height: 40,
+        borderColor: 'gray',
+        borderWidth: 1,
+        borderRadius: 12,
+        paddingLeft: 5,
+        marginTop: Platform.OS === 'ios' ? 0 : 10,
+        marginBottom: Platform.OS === 'ios' ? 0 : 10,
+    },
+    currencySum: {
+        marginBottom: Platform.OS === 'ios' ? 10 : 10,
+    },
+    buttons: {
+        width: 150,
+        alignSelf: 'center',
+        marginTop: 10,
+    },
 });
