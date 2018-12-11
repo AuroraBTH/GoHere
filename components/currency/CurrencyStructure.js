@@ -114,9 +114,10 @@ export default class CurrencyStructure extends Component {
 
                 <TouchableHighlight
                     style={{width: 40, alignSelf: 'center'}}
-                    onPress={this.changeCurrency}
+                    onPressIn={this.changeCurrency}
+                    onPressOut={this.calculateSum}
                     underlayColor={Colors.tintColor}
-                    >
+                >
                     <Icon.Ionicons
                         name={Platform.OS === 'ios' ? 'ios-repeat' : 'md-repeat'}
                         size={40}
