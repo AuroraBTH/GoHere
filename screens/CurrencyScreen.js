@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import { WebBrowser } from 'expo';
+import CurrencyStructure from '../components/currency/CurrencyStructure';
 
 export default class CurrencyScreen extends React.Component {
     static navigationOptions = {
@@ -18,11 +19,7 @@ export default class CurrencyScreen extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-                    <View style={styles.settingsContainer}>
-                        <Text>Currency</Text>
-                    </View>
-                </ScrollView>
+                <CurrencyStructure />
             </View>
         );
     }
@@ -31,16 +28,6 @@ export default class CurrencyScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-    },
-    contentContainer: {
-        paddingTop: 30,
-        backgroundColor: '#fff',
-    },
-    settingsContainer: {
-        alignItems: 'center',
-        marginTop: 10,
-        marginBottom: 20,
         backgroundColor: '#fff',
     },
 });
