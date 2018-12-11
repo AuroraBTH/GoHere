@@ -10,10 +10,18 @@ import {
 } from 'react-native';
 import { WebBrowser } from 'expo';
 import CurrencyStructure from '../components/currency/CurrencyStructure';
+import Colors from '../constants/Colors';
 
 export default class CurrencyScreen extends React.Component {
     static navigationOptions = {
-    title: 'Currency',
+    title: 'GoHere',
+    headerTintColor: Colors.tintColor,
+    headerStyle: {
+        backgroundColor: Colors.stone,
+    },
+    headerTitleStyle: {
+        fontSize: 22,
+    },
   };
 
     render() {
