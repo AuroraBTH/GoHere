@@ -4,6 +4,7 @@ export default {
   tintColor,
   stone: '#406983',
   mist: '#95AEC2',
+  almostBlack: '#030D19',
   tabIconDefault: '#333',
   tabIconSelected: tintColor,
   tabBar: '#fefefe',
