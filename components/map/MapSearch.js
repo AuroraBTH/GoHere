@@ -15,8 +15,6 @@ class MapSearch extends Component {
     }
 
     handleChange(load) {
-        console.log(this.state.searchValue + "ETT VÄRDE");
-        
         this.props.loadList(load)
     }
 
@@ -30,7 +28,9 @@ class MapSearch extends Component {
                         onSearch={() => this.props.dispatch(submitSearch(this.state.searchValue))}
                         onFocus={() => this.handleChange('load')}
                         onCancel={() => this.handleChange('cancel')}
-                        defaultValue='Restaurant Karlskron'
+                        inputBorderRadius={25}
+                        backgroundColor={Colors.stone}
+                        inputHeight={30}
                     />
                 </View>
             </View>
