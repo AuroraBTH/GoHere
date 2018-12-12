@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Dimensions, Platform, StyleSheet, ScrollView, View, Text } from 'react-native'
+import { Dimensions, Platform, StyleSheet, ScrollView, View, Text, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import TabBarIcon from '../TabBarIcon'
 import Colors from '../../constants/Colors'
@@ -10,14 +10,35 @@ class MapListView extends Component {
     constructor(props) {
         super(props)
         this.state = {}
+    }
 
-        this.mappedArray = this.mappedArray.bind(this)
+    magicClickFunction(marker){
+        returnMarker = {
+            coordinate: {
+                latitude: marker.location.location.lat,
+                longitude: marker.location.location.lng
+            },
+            title: marker.name,
+            descripiton: marker.address,
+        }
+
+        latDelta = marker.location.viewport.northeast.lat - marker.location.viewport.southwest.lat,
+        lngDelta = marker.location.viewport.northeast.lng - marker.location.viewport.southwest.lng
+
+        returnRegion = {
+            latitude: marker.location.location.lat,
+            longitude: marker.location.location.lng,
+            latitudeDelta: latDelta,
+            longitudeDelta: lngDelta
+        }
+        
+        this.props.loadStartRegionAndMarkers(returnRegion, returnMarker)
     }
 
     mappedArray(){
         return this.props.resultArray.map((obj, index) => {
             return (
-                <View key={index} style={styles.itemWrapper}>
+                <TouchableOpacity key={index} style={styles.itemWrapper} onPress={() => this.magicClickFunction(obj)}>
                     <View style={styles.left}>
                         <Text style={styles.itemTextTitle}>{obj.name}</Text>
                         <Text style={styles.itemText}>{obj.address}</Text>
@@ -27,7 +48,7 @@ class MapListView extends Component {
                             name={Platform.OS === 'ios' ? 'ios-arrow-forward' : 'md-arrow-forward'}
                         />
                     </View>
-                </View>
+                </TouchableOpacity>
             )
         })
     }
@@ -38,9 +59,11 @@ class MapListView extends Component {
                 { this.props.resultArray.length > 0 ? (
                     <ScrollView style={styles.scrollViewWrapper}>{this.mappedArray()}</ScrollView>
                 ) : (
-                    <View><Text>No search</Text></View>
+                    <View>
+                        <Text>If you have trouble finding your location, try to be more specific:</Text>
+                        <Text>Ex: Landbron Karlskrona</Text>
+                    </View>
                 )}
-                {console.log(this.props.test)}
             </ScrollView>
         )
     }
