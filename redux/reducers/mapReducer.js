@@ -1,6 +1,5 @@
 export default function reducer(state = {
     resultArray: [],
-    test: 'Halloj',
 }, action) {
 
     switch (action.type) {
