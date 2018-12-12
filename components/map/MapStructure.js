@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, StatusBar } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import MapLoad from './MapLoad';
 import MapSearch from './MapSearch';
 
@@ -13,11 +13,7 @@ export default class MapStructure extends Component {
     }
 
     loadList(value){
-        console.log(value + ' H*R **RR VALUE');
-        
         this.setState({loadListView: value});
-        console.log(this.state.loadListView + ' aofaiofaofaw');
-        
     }
 
     render() {
