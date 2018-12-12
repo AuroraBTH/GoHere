@@ -22,7 +22,7 @@ export function submitSearch(text) {
 
                     returnResponse.push(location)
                 })
-
+                
                 await dispatch({ type: 'ADD_RESULT_ARRAY', payload: returnResponse })
             } catch (error) {
                 console.error(error)

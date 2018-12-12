@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { Text, View, StyleSheet, Button, ScrollView, Image } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
 import { connect } from 'react-redux';
-import { addText } from '../../redux/actions/testAction';
+import MapListView from './MapListView';
 
 class MapLoad extends Component {
     constructor(props) {
@@ -42,14 +42,18 @@ class MapLoad extends Component {
         this.setState({ startRegion: region });
     }
 
-    render() {
+    renderListView(props){
+        return <MapListView />
+    }
+
+    renderMapView(props){
         return (
             <View style={styles.mapContainer}>
                 <MapView
                     style={styles.map}
                     showsUserLocation={true}
                     region={this.state.startRegion}
-                    /*onRegionChange={this.onRegionChange} DIS LAGGS, IX THIS*/
+                /*onRegionChange={this.onRegionChange} DIS LAGGS, IX THIS*/
                 >
                     {this.state.markers.map((marker, index) => (
                         <Marker
@@ -60,10 +64,21 @@ class MapLoad extends Component {
                         />
                     ))}
                 </MapView>
-                <Button title="Yello" onPress={() => this.props.dispatch(addText("test"))}></Button>
                 <Text>{this.state.startRegion.latitude}</Text>
             </View>
         );
+    }
+
+    render() {
+        return (
+            <View style={styles.mapContainer}>
+                {this.props.loadListView == 'load' ? (
+                    this.renderListView()
+                ) : (
+                    this.renderMapView()
+                )}
+            </View>
+        )
     }
 }
 
