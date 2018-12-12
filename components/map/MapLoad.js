@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Button, ScrollView, Image } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
 import { connect } from 'react-redux';
@@ -16,34 +16,28 @@ class MapLoad extends Component {
                 longitudeDelta: 0.0121,
             },
             markers: [
-                {
-                    latlng: {
-                        latitude: 56.1779866,
-                        longitude: 15.5925124,
-                    },
-                    title: "Test Title",
-                    description: "A desc",
-                },
-                {
-                    latlng: {
-                        latitude: 56.1711866,
-                        longitude: 15.5925124,
-                    },
-                    title: "Test Title",
-                    description: "A desc",
-                },
             ],
+            searchMarker: null
         }
-        this.onRegionChange = this.onRegionChange.bind(this);
+        this.loadStartRegionAndMarkers = this.loadStartRegionAndMarkers.bind(this)
+        this.onRegionChange = this.onRegionChange.bind(this)
     }
 
+    loadStartRegionAndMarkers(region, markers) {
+        this.setState({
+            startRegion: region,
+            searchMarker: [markers]
+        })
+
+        this.props.loadList('')
+    }
     
     onRegionChange(region) {
-        this.setState({ startRegion: region });
+        this.setState({ startRegion: region })
     }
 
     renderListView(props){
-        return <MapListView />
+        return <MapListView loadStartRegionAndMarkers={this.loadStartRegionAndMarkers} loadListView={this.state.loadListView}/>
     }
 
     renderMapView(props){
@@ -53,8 +47,19 @@ class MapLoad extends Component {
                     style={styles.map}
                     showsUserLocation={true}
                     region={this.state.startRegion}
-                /*onRegionChange={this.onRegionChange} DIS LAGGS, IX THIS*/
                 >
+                    {
+                        this.state.searchMarker && (
+                            this.state.searchMarker.map((marker, index) => (
+                                <Marker
+                                    coordinate = { marker.coordinate }
+                                    title = { marker.title }
+                                    description = { marker.description }
+                                    key = { index }
+                                />
+                            ))
+                        )
+                    }
                     {this.state.markers.map((marker, index) => (
                         <Marker
                             coordinate={marker.latlng}
@@ -64,7 +69,6 @@ class MapLoad extends Component {
                         />
                     ))}
                 </MapView>
-                <Text>{this.state.startRegion.latitude}</Text>
             </View>
         );
     }
