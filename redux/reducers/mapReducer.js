@@ -4,6 +4,7 @@ export default function reducer(state = {
 
     switch (action.type) {
         case 'ADD_RESULT_ARRAY': {
+            
             return { ...state, resultArray: action.payload }
         }
         default: {

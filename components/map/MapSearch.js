@@ -1,16 +1,21 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, ScrollView } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import Search from 'react-native-search-box'
 import { connect } from 'react-redux'
 
 import { submitSearch } from '../../redux/actions/mapAction'
 import Colors from '../../constants/Colors'
 class MapSearch extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
             searchValue: "",
         }
+        this.handleChange = this.handleChange.bind(this)
+    }
+
+    handleChange(load) {
+        this.props.loadList(load)
     }
 
     render() {
@@ -20,19 +25,21 @@ class MapSearch extends Component {
                     <Search
                         ref="search_box"
                         onChangeText={(searchValue) => this.setState({ searchValue })}
-                        onSearch={ () => this.props.dispatch(submitSearch(this.state.searchValue)) }
-                    /> 
+                        onSearch={() => this.props.dispatch(submitSearch(this.state.searchValue))}
+                        onFocus={() => this.handleChange('load')}
+                        onCancel={() => this.handleChange('cancel')}
+                        inputBorderRadius={25}
+                        backgroundColor={Colors.stone}
+                        inputHeight={30}
+                    />
                 </View>
-                <ScrollView>{console.log(this.state.resultArray)}</ScrollView>
             </View>
         )
     }
 }
 
 export default connect((store) => {
-    return {
-        resultArray: store.map.resultArray
-    }
+    return {}
 })(MapSearch)
 
 const styles = StyleSheet.create({

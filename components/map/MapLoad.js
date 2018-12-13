@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
 import { connect } from 'react-redux';
-import { addText } from '../../redux/actions/testAction';
+import MapListView from './MapListView';
 
 class MapLoad extends Component {
     constructor(props) {
@@ -16,41 +16,50 @@ class MapLoad extends Component {
                 longitudeDelta: 0.0121,
             },
             markers: [
-                {
-                    latlng: {
-                        latitude: 56.1779866,
-                        longitude: 15.5925124,
-                    },
-                    title: "Test Title",
-                    description: "A desc",
-                },
-                {
-                    latlng: {
-                        latitude: 56.1711866,
-                        longitude: 15.5925124,
-                    },
-                    title: "Test Title",
-                    description: "A desc",
-                },
             ],
+            searchMarker: null
         }
-        this.onRegionChange = this.onRegionChange.bind(this);
+        this.loadStartRegionAndMarkers = this.loadStartRegionAndMarkers.bind(this)
+        this.onRegionChange = this.onRegionChange.bind(this)
     }
 
+    loadStartRegionAndMarkers(region, markers) {
+        this.setState({
+            startRegion: region,
+            searchMarker: [markers]
+        })
+
+        this.props.loadList('')
+    }
     
     onRegionChange(region) {
-        this.setState({ startRegion: region });
+        this.setState({ startRegion: region })
     }
 
-    render() {
+    renderListView(props){
+        return <MapListView loadStartRegionAndMarkers={this.loadStartRegionAndMarkers} loadListView={this.state.loadListView}/>
+    }
+
+    renderMapView(props){
         return (
             <View style={styles.mapContainer}>
                 <MapView
                     style={styles.map}
                     showsUserLocation={true}
                     region={this.state.startRegion}
-                    /*onRegionChange={this.onRegionChange} DIS LAGGS, IX THIS*/
                 >
+                    {
+                        this.state.searchMarker && (
+                            this.state.searchMarker.map((marker, index) => (
+                                <Marker
+                                    coordinate = { marker.coordinate }
+                                    title = { marker.title }
+                                    description = { marker.description }
+                                    key = { index }
+                                />
+                            ))
+                        )
+                    }
                     {this.state.markers.map((marker, index) => (
                         <Marker
                             coordinate={marker.latlng}
@@ -60,10 +69,20 @@ class MapLoad extends Component {
                         />
                     ))}
                 </MapView>
-                <Button title="Yello" onPress={() => this.props.dispatch(addText("test"))}></Button>
-                <Text>{this.state.startRegion.latitude}</Text>
             </View>
         );
+    }
+
+    render() {
+        return (
+            <View style={styles.mapContainer}>
+                {this.props.loadListView == 'load' ? (
+                    this.renderListView()
+                ) : (
+                    this.renderMapView()
+                )}
+            </View>
+        )
     }
 }
 
