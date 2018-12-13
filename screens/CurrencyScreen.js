@@ -17,6 +17,7 @@ export default class CurrencyScreen extends React.Component {
     title: 'GoHere',
     headerTintColor: Colors.tintColor,
     headerStyle: {
+        borderBottomWidth: 0,
         backgroundColor: Colors.stone,
     },
     headerTitleStyle: {
