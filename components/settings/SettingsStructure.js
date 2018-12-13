@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, FlatList, Platform, Alert, TouchableHighlight } from 'react-native';
+import { Text, View, StyleSheet, FlatList, Platform, Alert, TouchableHighlight, Switch } from 'react-native';
 import Colors from '../../constants/Colors';
 import { Icon } from 'expo';
 
@@ -12,9 +12,16 @@ const items = [
 ];
 
 export default class SettingsStructure extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            value: false
+        };
+    }
+
     showAlert() {
         Alert.alert(
-            'WOW!'
+            'Nothing to change yet...'
         )
     }
 
@@ -33,9 +40,9 @@ export default class SettingsStructure extends Component {
                             underlayColor={Colors.highlightGrey}
                         >
                         <View style={styles.listView}>
-                                <Text style={styles.listItem}>{item.key}</Text>
+                            <Text style={styles.listItem}>{item.key}</Text>
                             <Icon.Ionicons
-                                name={Platform.OS === 'ios' ? 'ios-arrow-forward' : 'chevron-right'}
+                                name={Platform.OS === 'ios' ? 'ios-arrow-forward' : 'md-arrow-forward'}
                                 size={20}
                                 style={[styles.listItem, {marginLeft: 'auto'}]}
                             />
@@ -43,6 +50,13 @@ export default class SettingsStructure extends Component {
                         </TouchableHighlight>
                     )}
                 />
+                <View style={[styles.listView, {flex: 1, flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0}]}>
+                    <Text style={styles.listItem}>Offline mode</Text>
+                    <Switch
+                        value={this.state.value}
+                        onValueChange={(value) => this.setState({value})}
+                    />
+                </View>
             </View>
         );
     }
@@ -57,6 +71,7 @@ const styles = StyleSheet.create({
     listView: {
         flex: 1,
         flexDirection: 'row',
+        alignItems: 'center',
         borderBottomColor: Colors.borderGrey,
         borderBottomWidth: 1,
     },
