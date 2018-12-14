@@ -14,6 +14,7 @@ export default class SettingsScreen extends React.Component {
         title: 'GoHere',
         headerTintColor: Colors.tintColor,
         headerStyle: {
+            borderBottomWidth: 0,
             backgroundColor: Colors.stone,
         },
         headerTitleStyle: {

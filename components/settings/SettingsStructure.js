@@ -51,7 +51,7 @@ export default class SettingsStructure extends Component {
                     )}
                 />
                 <View style={[styles.listView, {flex: 1, flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0}]}>
-                    <Text style={styles.listItem}>Offline mode</Text>
+                    <Text style={[styles.listItem, {color: Colors.almostBlack}]}>Offline mode</Text>
                     <Switch
                         value={this.state.value}
                         onValueChange={(value) => this.setState({value})}
