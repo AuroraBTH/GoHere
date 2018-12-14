@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
-import { View, StyleSheet } from 'react-native'
-import MapView, { Marker } from 'react-native-maps'
+import React, { Component } from 'react';
+import { View, StyleSheet, Platform } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
+import { Constants, Location, Permissions } from 'expo';
 
 import { connect } from 'react-redux'
 import MapListView from './MapListView'
@@ -10,12 +11,6 @@ class MapLoad extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            startRegion: {
-                latitude: 56.1779866,
-                longitude: 15.5925124,
-                latitudeDelta: 0.015,
-                longitudeDelta: 0.0121,
-            },
             markers: [
             ],
             searchMarker: null,
@@ -24,6 +19,28 @@ class MapLoad extends Component {
         this.loadStartRegionAndMarkers = this.loadStartRegionAndMarkers.bind(this)
         this.onRegionChange = this.onRegionChange.bind(this)
     }
+
+    componentWillMount() {
+        if (Platform.OS === "android" && Constants.isDevice) {
+            this._getLocationAsync();
+        }
+    }
+
+    _getLocationAsync = async () => {
+        let { status } = await Permissions.askAsync(Permissions.LOCATION);
+
+        if (status == "granted") {
+            let location = await Location.getCurrentPositionAsync({});
+            this.setState({
+                startRegion: {
+                    latitude: location.coords.latitude,
+                    longitude: location.coords.longitude,
+                    latitudeDelta: 0.015,
+                    longitudeDelta: 0.0121,
+                },
+            });
+        }
+    };
 
     loadStartRegionAndMarkers(region, markers) {
         this.setState({

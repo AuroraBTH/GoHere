@@ -1,20 +1,29 @@
 import React from 'react';
 import {
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
+    Image,
+    Platform,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native';
 import { WebBrowser } from 'expo';
+import Colors from '../constants/Colors';
 
 import MapStructure from '../components/map/MapStructure';
 
 export default class HomeScreen extends React.Component {
     static navigationOptions = {
-        header: null,
+        title: 'GoHere',
+        headerTintColor: Colors.tintColor,
+        headerStyle: {
+            borderBottomWidth: 0,
+            backgroundColor: Colors.stone,
+        },
+        headerTitleStyle: {
+            fontSize: 22,
+        },
     };
 
     render() {
