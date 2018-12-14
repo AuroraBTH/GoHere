@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   Image,
   Platform,
@@ -7,24 +7,34 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from 'react-native';
-import { WebBrowser } from 'expo';
+} from 'react-native'
+import { WebBrowser } from 'expo'
+import Colors from '../constants/Colors'
 
+import RoutesStructure from '../components/routes/RoutesStructure'
 export default class RoutesScreen extends React.Component {
     static navigationOptions = {
-    title: 'Routes',
-  };
+        title: 'GoHere',
+        headerTintColor: Colors.tintColor,
+        headerStyle: {
+            backgroundColor: Colors.stone,
+            borderBottomWidth: 0,
+        },
+        headerTitleStyle: {
+            fontSize: 22,
+        },
+    }
 
     render() {
         return (
             <View style={styles.container}>
-                <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-                    <View style={styles.settingsContainer}>
-                        <Text>Routes</Text>
+                <ScrollView style={styles.container}>
+                    <View>
+                        <RoutesStructure />
                     </View>
                 </ScrollView>
             </View>
-        );
+        )
     }
 }
 
@@ -33,14 +43,4 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
     },
-    contentContainer: {
-        paddingTop: 30,
-        backgroundColor: '#fff',
-    },
-    settingsContainer: {
-        alignItems: 'center',
-        marginTop: 10,
-        marginBottom: 20,
-        backgroundColor: '#fff',
-    },
-});
+})
