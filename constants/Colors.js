@@ -8,10 +8,13 @@ export default {
   tabIconDefault: '#333',
   tabIconSelected: tintColor,
   tabBar: '#fefefe',
+  white: '#fefefe',
   errorBackground: 'red',
   errorText: '#fff',
   warningBackground: '#EAEB5E',
   warningText: '#666804',
   noticeBackground: tintColor,
   noticeText: '#fff',
+  accent: '#FF9500',
+  darkerAccent: '#DE8200',
 };
