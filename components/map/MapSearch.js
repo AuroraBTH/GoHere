@@ -31,7 +31,7 @@ class MapSearch extends Component {
                         inputBorderRadius={25}
                         backgroundColor={Colors.stone}
                         inputHeight={30}
-                        defaultValue={'landbron karlskron'}
+                        
                     />
                 </View>
             </View>
