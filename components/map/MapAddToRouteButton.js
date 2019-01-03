@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Button, TouchableHighlight } from 'react-native'
+import { View, StyleSheet, Button, TouchableHighlight, Platform } from 'react-native'
 import Colors from '../../constants/Colors'
 import { connect } from 'react-redux'
 import { addPinToRoute } from '../../redux/actions/storageAction' 
@@ -13,10 +13,10 @@ class MapAddToRouteButton extends Component {
 
     render() {
         return (
-            <TouchableHighlight style={styles.buttonWrapper}>
+            <TouchableHighlight style={Platform.OS === 'ios' ? styles.buttonWrapper : styles.buttonWrapperAndroid}>
                 <Button
                     title={'Add to route'}
-                    color={Colors.white}
+                    color={Platform.OS === 'ios' ? Colors.white : Colors.accent}
                     onPress={() => this.props.dispatch(addPinToRoute(this.props.coords, this.props.title))}
                 />
             </TouchableHighlight>
@@ -40,7 +40,10 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: Colors.darkerAccent,
     },
-    button: {
-        color: Colors.white,
+    buttonWrapperAndroid: {
+        width: '50%',
+        paddingTop: 3,
+        paddingBottom: 3,
+        marginBottom: 10
     }
 });
