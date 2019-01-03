@@ -31,6 +31,7 @@ class MapSearch extends Component {
                         inputBorderRadius={25}
                         backgroundColor={Colors.stone}
                         inputHeight={30}
+                        
                     />
                 </View>
             </View>

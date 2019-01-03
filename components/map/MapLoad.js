@@ -3,8 +3,9 @@ import { View, StyleSheet, Platform } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { Constants, Location, Permissions } from 'expo';
 
-import { connect } from 'react-redux';
-import MapListView from './MapListView';
+import { connect } from 'react-redux'
+import MapListView from './MapListView'
+import MapAddToRouteButton from './MapAddToRouteButton'
 
 class MapLoad extends Component {
     constructor(props) {
@@ -12,7 +13,8 @@ class MapLoad extends Component {
         this.state = {
             markers: [
             ],
-            searchMarker: null
+            searchMarker: null,
+            addPinToRoute: false,
         }
         this.loadStartRegionAndMarkers = this.loadStartRegionAndMarkers.bind(this)
         this.onRegionChange = this.onRegionChange.bind(this)
@@ -47,6 +49,7 @@ class MapLoad extends Component {
         })
 
         this.props.loadList('')
+
     }
     
     onRegionChange(region) {
@@ -85,7 +88,14 @@ class MapLoad extends Component {
                             key={index}
                         />
                     ))}
+
                 </MapView>
+                {this.state.searchMarker && (
+                    <MapAddToRouteButton 
+                        title={this.state.searchMarker[0].title} 
+                        coords={this.state.searchMarker[0].coordinate}/>
+                        
+                )}
             </View>
         );
     }
