@@ -11,13 +11,18 @@ class MapAddToRouteButton extends Component {
         
     }
 
+    magicClick() {
+        this.props.handler()
+        this.props.dispatch(addPinToRoute(this.props.coords, this.props.title))
+    }
+
     render() {
         return (
             <TouchableHighlight style={Platform.OS === 'ios' ? styles.buttonWrapper : styles.buttonWrapperAndroid}>
                 <Button
                     title={'Add to route'}
                     color={Platform.OS === 'ios' ? Colors.white : Colors.accent}
-                    onPress={() => this.props.dispatch(addPinToRoute(this.props.coords, this.props.title))}
+                    onPress={() => this.magicClick()}
                 />
             </TouchableHighlight>
         );

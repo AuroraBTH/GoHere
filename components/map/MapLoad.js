@@ -16,6 +16,8 @@ class MapLoad extends Component {
             searchMarker: null,
             addPinToRoute: false,
         }
+
+        this.handler = this.handler.bind(this)
         this.loadStartRegionAndMarkers = this.loadStartRegionAndMarkers.bind(this)
         this.onRegionChange = this.onRegionChange.bind(this)
     }
@@ -60,6 +62,40 @@ class MapLoad extends Component {
         return <MapListView loadStartRegionAndMarkers={this.loadStartRegionAndMarkers} loadListView={this.state.loadListView}/>
     }
 
+    handler() {
+        // magicList should be the currently loaded route (fetch from redux?)
+        magicList = [
+            {
+                "coordinate": {
+                    "latitude": 56.1651995,
+                    "longitude": 15.5860701,
+                },
+                "descripiton": "Landbron, 371 33 Karlskrona, Sweden",
+                "title": "Landbron",
+            },
+            {
+                "coordinate": {
+                    "latitude": 56.1736612,
+                    "longitude": 15.5881602,
+                },
+                "title": "Willys"
+            },
+            {
+                "coordinate": {
+                    "latitude": 56.19696099999999,
+                    "longitude": 15.64951,
+                },
+                "title": "Willys Karlskrona Castle Hill"
+            }
+        ]
+
+        this.setState({
+            searchMarker: null,
+            addPinToRoute: false,
+            markers: magicList
+        })
+    }
+
     renderMapView(props){
         return (
             <View style={styles.mapContainer}>
@@ -80,9 +116,10 @@ class MapLoad extends Component {
                             ))
                         )
                     }
+                    
                     {this.state.markers.map((marker, index) => (
                         <Marker
-                            coordinate={marker.latlng}
+                            coordinate={marker.coordinate}
                             title={marker.title}
                             description={marker.description}
                             key={index}
@@ -93,8 +130,9 @@ class MapLoad extends Component {
                 {this.state.searchMarker && (
                     <MapAddToRouteButton 
                         title={this.state.searchMarker[0].title} 
-                        coords={this.state.searchMarker[0].coordinate}/>
-                        
+                        coords={this.state.searchMarker[0].coordinate}
+                        handler={this.handler}
+                    />    
                 )}
             </View>
         );
@@ -102,7 +140,7 @@ class MapLoad extends Component {
 
     render() {
         return (
-            <View style={styles.mapContainer}>
+            <View key={this.state.addPinToRoute} style={styles.mapContainer}>
                 {this.props.loadListView == 'load' ? (
                     this.renderListView()
                 ) : (
