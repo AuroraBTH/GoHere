@@ -1,32 +1,60 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Text, FlatList, Platform, TouchableHighlight } from 'react-native'
+import { View, StyleSheet, Text, FlatList, Platform, TouchableHighlight, AsyncStorage, Alert } from 'react-native'
 import Colors from '../../constants/Colors'
 import { Icon } from 'expo';
+import IconFontA from 'react-native-vector-icons/FontAwesome';
 
 export default class RoutesStructure extends Component {
     constructor(props){
         super(props);
         this.state = {
-            routes: [
-                {key: "Karlskrona"},
-                {key: "Stockholm"},
-                {key: "Berlin"},
-            ]
+            theRoute: ""
         }
+    }
+
+    componentDidMount() {
+        this.loadTheRoute()
+    }
+
+    async loadTheRoute() {
+        this.setState({
+            theRoute: JSON.parse(await AsyncStorage.getItem('route'))
+        })
+    }
+
+    async deleteMarker(idOfMarker) {
+        tempRoute = this.state.theRoute
+
+        tempRoute.splice(idOfMarker, 1)
+
+        await AsyncStorage.setItem('route', JSON.stringify(this.state.theRoute))
+
+        this.loadTheRoute()
+    }
+
+    removeMarker(nameOfMarker, idOfMarker) {
+        Alert.alert(
+            'Remove this marker',
+            nameOfMarker.toString(),
+            [
+                {text: 'Cancel', style: 'cancel'},
+                {text: 'Remove', onPress: () => this.deleteMarker(idOfMarker)},
+            ],
+        )
     }
 
     render() {
         return (
             <View style={ styles.routesScreenContainer }>
                 <View style={{ borderBottomColor: 'grey', borderBottomWidth: 1 }}>
-                    <Text style={{ fontSize: 20, textAlign: 'center', marginBottom: 10 }}>Routes</Text>
+                    <Text style={{ fontSize: 20, textAlign: 'center', marginBottom: 10 }}>Routes (Karlskrona)</Text>
                 </View>
                 <FlatList
                     scrollEnabled={true}
-                    data={this.state.routes}
-                    renderItem={({ item }) => (
+                    data={this.state.theRoute}
+                    renderItem={({ item, index }) => (
                         <TouchableHighlight
-                            onPress={null}
+                            onPress={() => this.removeMarker(item.key, index)}
                             underlayColor={null}
                         >
                             <View style={styles.listView}>
@@ -39,6 +67,17 @@ export default class RoutesStructure extends Component {
                             </View>
                         </TouchableHighlight>
                     )}
+                />
+
+                <IconFontA.Button
+                    style={{justifyContent: "center"}}
+                    name="refresh"
+                    backgroundColor="#3b5998"
+                    size={40}
+                    iconStyle={{padding: 5}}
+                    onPress={async () => {
+                        this.loadTheRoute()
+                    }}
                 />
             </View>
         )

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "CleanApp",
-    "slug": "CleanApp",
+    "name": "GoHere",
+    "slug": "GoHere",
     "privacy": "public",
     "sdkVersion": "31.0.0",
     "platforms": [
@@ -24,6 +24,9 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.bthwebb.gohere"
     }
   }
 }

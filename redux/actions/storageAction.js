@@ -13,10 +13,12 @@ export const addPinToRoute = (coords, title) => {
                  * Structured object created with searched info.
                  */
                 const pinsCoords = {
-                    [title]: {
-                        latitude: coords.latitude,
-                        longitude: coords.longitude
-                    } 
+                    "key": title,
+                    "title": title,
+                    "coordinate": {
+                        "latitude": coords.latitude,
+                        "longitude": coords.longitude
+                    }
                 }
 
                 /* Retrieves the current saved route */
@@ -34,7 +36,7 @@ export const addPinToRoute = (coords, title) => {
                  * Return: Amount of times pin already exists. -1 for non existing
                  */
                 function testSome(obj) {
-                    return Object.keys(obj)[0] === title
+                    return obj.key === title
                 }
                 let checkIfExist = newRoute.findIndex(testSome)
                 

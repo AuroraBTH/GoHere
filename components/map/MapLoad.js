@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Platform } from 'react-native';
+import { View, StyleSheet, Platform, AsyncStorage } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { Constants, Location, Permissions } from 'expo';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { connect } from 'react-redux'
 import MapListView from './MapListView'
@@ -16,10 +17,23 @@ class MapLoad extends Component {
             searchMarker: null,
             addPinToRoute: false,
         }
+
+        this.handler = this.handler.bind(this)
         this.loadStartRegionAndMarkers = this.loadStartRegionAndMarkers.bind(this)
         this.onRegionChange = this.onRegionChange.bind(this)
     }
 
+    async componentDidMount() {
+        let data = JSON.parse(await AsyncStorage.getItem('route'))
+
+        if (data !== null) {
+            this.setState({
+                markers: data
+            })
+        }
+    }
+
+    // "componentWillMount" Will be depricated in version 17 of react.
     componentWillMount() {
         if (Platform.OS === "android" && Constants.isDevice) {
             this._getLocationAsync();
@@ -60,6 +74,14 @@ class MapLoad extends Component {
         return <MapListView loadStartRegionAndMarkers={this.loadStartRegionAndMarkers} loadListView={this.state.loadListView}/>
     }
 
+    async handler() {
+        this.setState({
+            searchMarker: null,
+            addPinToRoute: false,
+            markers: JSON.parse(await AsyncStorage.getItem('route'))
+        })
+    }
+
     renderMapView(props){
         return (
             <View style={styles.mapContainer}>
@@ -82,7 +104,7 @@ class MapLoad extends Component {
                     }
                     {this.state.markers.map((marker, index) => (
                         <Marker
-                            coordinate={marker.latlng}
+                            coordinate={marker.coordinate}
                             title={marker.title}
                             description={marker.description}
                             key={index}
@@ -93,16 +115,29 @@ class MapLoad extends Component {
                 {this.state.searchMarker && (
                     <MapAddToRouteButton 
                         title={this.state.searchMarker[0].title} 
-                        coords={this.state.searchMarker[0].coordinate}/>
+                        coords={this.state.searchMarker[0].coordinate}
+                        handler={this.handler}
+                    />
                         
                 )}
+                <Icon.Button
+                    name="refresh"
+                    backgroundColor="#3b5998"
+                    size={40}
+                    iconStyle={{marginRight: -1}}
+                    onPress={async () => {
+                        this.setState({
+                            markers: JSON.parse(await AsyncStorage.getItem('route'))
+                        })
+                    }}
+                />
             </View>
         );
     }
 
     render() {
         return (
-            <View style={styles.mapContainer}>
+            <View key={this.state.addPinToRoute} style={styles.mapContainer}>
                 {this.props.loadListView == 'load' ? (
                     this.renderListView()
                 ) : (
