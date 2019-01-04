@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, StyleSheet, Button, TouchableHighlight, Platform } from 'react-native'
+import { View, StyleSheet, Button, TouchableHighlight, Platform, AsyncStorage } from 'react-native'
 import Colors from '../../constants/Colors'
 import { connect } from 'react-redux'
 import { addPinToRoute } from '../../redux/actions/storageAction' 
@@ -11,13 +11,19 @@ class MapAddToRouteButton extends Component {
         
     }
 
+    async magicClick() {
+        this.props.dispatch(addPinToRoute(this.props.coords, this.props.title))
+        await AsyncStorage.getItem('route')
+        this.props.handler()
+    }
+
     render() {
         return (
             <TouchableHighlight style={Platform.OS === 'ios' ? styles.buttonWrapper : styles.buttonWrapperAndroid}>
                 <Button
                     title={'Add to route'}
                     color={Platform.OS === 'ios' ? Colors.white : Colors.accent}
-                    onPress={() => this.props.dispatch(addPinToRoute(this.props.coords, this.props.title))}
+                    onPress={() => this.magicClick()}
                 />
             </TouchableHighlight>
         );
